@@ -1,3 +1,11 @@
+// envigo - Override your configuration with environment variables.
+//
+//  https://github.com/koofr/envigo
+//
+// Copyright (c) 2013 Koofr d.o.o.
+//
+// Written by Luka Zakrajšek <luka@koofr.net>
+//
 package envigo
 
 import (
@@ -8,7 +16,21 @@ import (
 	"strings"
 )
 
-func Envigo(m interface{}, prefix string, getenv func(string) (string, bool)) (err error) {
+// Function that returns value and true (if key is found) for key.
+// Key is uppercased and build from field path.
+type EnvGetter func(key string) (value string, ok bool)
+
+// Envigo overrides values in struct with values found by EnvGetter.
+// Argument m must be pointer to structure.
+// Argument prefix is prepended to key name for lookup.
+// Argument getenv looks up value for key.
+//
+// Mapping example:
+//
+//   config.Http.Port -> HTTP_PORT
+//   config.Logging.Level -> LOGGING_LEVEL
+//   config.Debug -> DEBUG
+func Envigo(m interface{}, prefix string, getenv EnvGetter) (err error) {
 	typ := reflect.TypeOf(m)
 	val := reflect.ValueOf(m)
 
@@ -89,7 +111,8 @@ func Envigo(m interface{}, prefix string, getenv func(string) (string, bool)) (e
 	return
 }
 
-func EnvironGetter() func(string) (string, bool) {
+// EnvironGetter is default getter for os.Environ
+func EnvironGetter() EnvGetter {
 	items := os.Environ()
 
 	env := make(map[string]string)
