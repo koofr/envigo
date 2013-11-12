@@ -3,6 +3,8 @@ envigo
 
 Override your configuration with environment variables.
 
+[![GoDoc](https://godoc.org/github.com/koofr/envigo?status.png)](http://godoc.org/github.com/koofr/envigo)
+
 ## Example
 
 ```

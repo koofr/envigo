@@ -1,4 +1,4 @@
-// envigo - Override your configuration with environment variables.
+// Package envigo overrides your configuration with environment variables.
 //
 //  https://github.com/koofr/envigo
 //
@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-// Function that returns value and true (if key is found) for key.
+// EnvGetter is a function that returns value and true (if key is found) for key.
 // Key is uppercased and build from field path.
 type EnvGetter func(key string) (value string, ok bool)
 
