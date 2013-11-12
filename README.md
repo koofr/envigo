@@ -6,5 +6,5 @@ Override your configuration with environment variables.
 ## Example
 
 ```
-HTTP_PORT=8080 DEBUG=true go run example.go
+HTTP_PORT=8080 DEBUG=true go run examples/example.go
 ```
